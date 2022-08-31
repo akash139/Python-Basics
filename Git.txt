@@ -1,0 +1,101 @@
+GIT - Distributed version control - It has a central remote reposotory but also we have local repo. (based on the last sync)
+	- Ex: Even If server is offline, we can check the logs.
+	
+CVC - Cental version control - It is located in one place, It can cause a problem if you're not able to access the repo.
+    - Ex: If server is offline, or If the server is courputed 
+	
+GIT:
+git --version
+
+Setting global config variable:
+git config --global user.name "username"
+git config --global user.email "email@gmail.com"
+git config --list		#shows all configuration values we have setup while doing git config.
+
+need help:
+git help config or git help config --help
+
+****************************** Initialize a repository from existing code: ******************************
+git init
+git status
+touch .gitignore			---> It ignore those specfic extensions which are mentioned in .gitignore File. ex: *.pyc(ignore all file which has an extensions .pyc), project
+
+git add -A or --all			---> push all file
+git add fileName			---> push specfic file
+
+## Remove File from commiting
+git reset fileName			---> remove specfic file from commiting
+git reset					---> reset all file from commiting
+
+git commit -m "Initial Commit"				---> -m is message
+
+git log						---> we can see the commit we made.
+
+## ****************************** Cloning a remote repo ******************************
+git clone <url>
+
+git remote -v 				----> Info about remote repository
+git branch -a				----> Shows all the branch associate with the repository
+git branch					----> show current branch
+git diff					--->  show the changes I have made in the code
+git status
+git add .
+git commit -m "Initial Commit"
+origin 						---> It's the name of remote repository 
+git pull origin <branch>	---> pull changes from the remote repository and merge that to the local checked-out branch
+git push origin <branch>	---> pused the changes  to remote repo
+
+## ****************************** Common Workflow: How to start ******************************
+git branch akash			--> creating a branch
+git checkout akashp			--> For switch the branch
+git status
+git add -A
+git commit -m 'Pusing from branch'
+git pull -u origin akash	
+git push -u origin akashp
+
+
+*********** Merge a branch***********
+git checkout master
+git pull origin master
+git branch --merged 		---> merging the branchs
+git merge branchName		---> merging the branch
+git push origin master
+
+*********** delete branch ***********
+git branch --master
+git branch -d akash
+git push origin --delete akash
+git branch -a
+
+git commit --amend  -m "change the last commit msg"
+
+git log 						---> Get the has code master
+git cheery-pick hashCode		---> commit from master branch to dev branch.
+
+
+
+git reset --soft hashCode		---> deletes the commit, but keeps file. where we can use further
+git reset hashCode				---> 
+git reset --hard hashCode		---> delete the commit
+
+git clean -df 					---> remove all untracked file	df = directory and file
+
+
+*********** When want to bring the last git push
+git reflog						---> show commit in order of commit with hashCode
+git checkout hashCode
+git log							---> here we will get lost file
+git branch backup				---> Add deleted file to back branch,which we created
+git checkout master
+
+********** roolback previous commit
+git revert hashCode
+git log
+git diff hashCode1 hashCode2	---> show the difference between two commits
+
+
+git add -u 						---> it adds all modified and deletedfile but not new file in the entire tree
+git add .						--> Add current difference
+git add -A 						--> If we run from any directory it will push all files
+git add * 						--> It ignores deleted and hidden files
