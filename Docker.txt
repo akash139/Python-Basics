@@ -1,0 +1,151 @@
+Docker::::
+Docker is a container management service.
+The keywords of Docker are develop, ship and run anywhere.
+The whole idea of Docker is for developers to easily develop applications, ship them into containers which can then be deployed anywhere.
+
+Features of Docker::::
+Docker has the ability to reduce the size of development by providing a smaller footprint of the operating system via containers.
+With containers, it becomes easier for teams across different units, such as dev, QA and Operations to work seamlessly across applications.
+You can deploy Docker containers anywhere, on any physical and virtual machines and even on the cloud.
+Since Docker containers are pretty lightweight, they are very easily scalable.
+
+Docker has the following components::::
+Docker for Mac − It allows one to run Docker containers on the Mac OS.
+Docker for Linux − It allows one to run Docker containers on the Linux OS.
+Docker for Windows − It allows one to run Docker containers on the Windows OS.
+Docker Engine − It is used for building Docker images and creating Docker containers.
+Docker Hub − This is the registry which is used to host various Docker images.
+	       - various Image files such as Centos which get downloaded from Docker hub from which you can spin up containers.
+Docker Compose − This is used to define applications using multiple Docker containers.
+
+Docker is only designed to run on Linux kernel version 3.8 and higher
+uname -a 			-> This method returns the system information about the Linux system.
+sudo apt-get update	-> You need to update the OS with the latest packages
+sudo docker pull jenkins -> download the Jenkins image onto the local Ubuntu server.
+docker images		-> list of Docker images on the system
+docker images -q	-> It tells the Docker command to return the Image ID’s only.
+docker rmi ImageID(7a86f8ffcb25 ) -> used to remove Docker images.
+docker inspect Repository	-> command is used see the details of an image or container.	[[ Repository − This is the name of the Image ]]
+docker ps			-> Return the currently running containers.
+docker ps -a 		-> list all of the containers on the system
+docker history ImageID  -> see all the commands that were run with an image via a container.
+docker top ContainerID 	-> you can see the top processes within a container. (docker top a6538825fc8d)
+docker stop ContainerID	-> used to stop a running container.
+docker rm ContainerID	-> used to delete a container.
+docker stats ContainerID -> used to provide the statistics of a running container.	[ i.e memory and CPU %]
+docker pause ContainerID -> used to pause the processes in a running container.
+docker unpause ContainerID -> used to unpause the processes in a running container.
+docker kill ContainerID	 -> used to kill the processes in a running container.
+service docker stop 	-> used to stop the Docker daemon process.
+docker build  -t ImageName:TagName dir		-> This method allows the users to build their own Docker images.
+docker tag imageID Repositoryname			-> This method allows one to tag an image to the relevant repository.
+docker push Repositoryname					-> This method allows one to push images to the Docker Hub.
+docker container port						-> 
+
+
+
+
+
+docker run hello-world::::::
+The Docker command is specific and tells the Docker program on the Operating System that something needs to be done.
+The run command is used to mention that we want to create an instance of an image, which is then called a container.
+Finally, "hello-world" represents the image from which the container is made.
+
+*********** Docker - Containers ***********
+Containers are instances of Docker images that can be run using the Docker run command. The basic purpose of Docker is to run containers.
+Running of containers is managed with the Docker run command. To run a container in an interactive mode, first launch the Docker container.
+sudo docker run –it centos /bin/bash 
+
+:::::::::: Docker – Container Lifecycle :::::::::::
+
+						Created
+		|->   Restart	   |      Unpaused   <-|	
+	Stopped	-----------	Running	----------- Paused
+						   |
+						Killed
+
+
+
+1. Initially, the Docker container will be in the created state.
+2. Then the Docker container goes into the running state when the Docker run command is used.
+3. The Docker kill command is used to kill an existing Docker container.
+4. The Docker pause command is used to pause an existing Docker container.
+5. The Docker stop command is used to pause an existing Docker container.
+6. The Docker run command is used to put a container back from a stopped state to a running state.
+
+
+:::::::: Docker - File ::::::::::
+But Docker also gives you the capability to create your own Docker images, and it can be done with the help of Docker Files. 
+A Docker File is a simple text file with instructions on how to build your images.
+
+Steps for creating a Docker File:
+1. Create a file called Docker File and edit it using vim. [ sudo vim Dockerfile]
+2. Build your Docker File
+		|
+#This is a sample Image 
+FROM ubuntu 
+MAINTAINER demousr@gmail.com 
+RUN apt-get update 
+RUN apt-get install –y nginx 
+CMD [“echo”,”Image created”] 
+
+****************
+The next line has to start with the FROM keyword. It tells docker, from which base image you want to base your image from. In our example, we are creating an image from the ubuntu image.
+The next command is the person who is going to maintain this image. Here you specify the MAINTAINER keyword and just mention the email ID.
+The RUN command is used to run instructions against the image. In our case, we first update our Ubuntu system and then install the nginx server on our ubuntu image.
+The last command is used to display a message to the user.
+***************
+3. Save the file.next, we will discuss how to build the image.
+
+::::::::::::::::: Docker - Building Files ::::::::::::::::::::::
+docker build  -t ImageName:TagName dir				-> This method allows the users to build their own Docker images.
+
+-t 			= is to mention a tag to the image
+ImageName	= This is the name you want to give to your image.
+TagName 	= This is the tag you want to give to your image.
+Dir 		= The directory where the Docker File is present.
+
+sudo docker build –t myimage:0.1.
+Here, myimage is the name we are giving to the Image and 0.1 is the tag number we are giving to our image.
+Since the Docker File is in the present working directory, we used "." at the end of the command to signify the present working directory.
+
+:::::::::::::: Docker - Public Repositories :::::::::::
+Public repositories can be used to host Docker images which can be used by everyone else. An example is the images which are available in Docker Hub. 
+Most of the images such as Centos, Ubuntu, and Jenkins are all publicly available for all. We can also make our images available by publishing it to 
+the public repository on Docker Hub.
+
+
+how you can upload an image to public repository.
+1. Log into Docker Hub and create your repository. This is the repository where your image will be stored. Go to https://hub.docker.com/
+2. Click the button "Create Repository" and create a repository with the name demorep. Make sure that the visibility of the repository is public.
+3. Once the repository is created, make a note of the pull command which is attached to the repository.
+4. Now go back to the Docker Host. Here we need to tag our myimage to the new repository created in Docker Hub. We can do this via the Docker tag command.
+5. sudo docker login
+6. Once the image has been tagged, it’s now time to push the image to the Docker Hub repository. We can do this via the Docker push command.
+
+docker tag::		-> This method allows one to tag an image to the relevant repository.
+docker tag imageID Repositoryname  
+imageID − This is the ImageID which needs to be tagged to the repository.
+Repositoryname − This is the repository name to which the ImageID needs to be tagged to.
+Example
+sudo docker tag ab0c1d3744dd demousr/demorep:1.0
+
+docker push:: 		-> This method allows one to push images to the Docker Hub.
+docker push Repositoryname
+Repositoryname − This is the repository name which needs to be pushed to the Docker Hub.
+Example
+sudo docker push demousr/demorep:1.0
+
+
+::::::::::::::::::::::: Docker - Managing Ports ::::::::::::::::::
+In Docker, the containers themselves can have applications running on ports. When you run a container, if you want to access the application in the 
+container via a port number, you need to map the port number of the container to the port number of the Docker host.
+
+Step 1 − First, you need to do a simple sign-up on Docker Hub.
+Step 2 - sudo docker pull jenkins 
+Step 3 - To understand what ports are exposed by the container, you should use the Docker inspect command to inspect the image.
+Step 4 - docker inspect Container/Image				[[	sudo docker inspect jenkins 	]]
+Step 5 - Under "ExposedPorts" and see that there are two ports mentioned. One is the data port of 8080 and the other is the control port of 50000.
+Step 6 - To run Jenkins and map the ports, you need to change the Docker run command and add the ‘p’ option which specifies the port mapping. 
+	     So, you need to run the following command −
+		 sudo docker run -p 8080:8080 -p 50000:50000 jenkins
