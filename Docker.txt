@@ -149,3 +149,65 @@ Step 5 - Under "ExposedPorts" and see that there are two ports mentioned. One is
 Step 6 - To run Jenkins and map the ports, you need to change the Docker run command and add the ‘p’ option which specifies the port mapping. 
 	     So, you need to run the following command −
 		 sudo docker run -p 8080:8080 -p 50000:50000 jenkins
+
+
+
+
+**********************************************************************************************************************************
+
+docker ps -a
+ps means "Process Status", so docker ps basically shows all of the Docker processes actively running. docker ps lists all containers that
+are up and running. -a means all (both stopped and running) containers.
+
+docker exec
+Usage: docker exec -it <container id> bash
+This command is used to access the running container
+
+docker stop
+Usage: docker stop <container id>
+This command stops a running container
+
+
+docker kill
+Usage: docker kill <container id>
+This command kills the container by stopping its execution immediately. The difference between ‘docker kill’ and ‘docker stop’ is that ‘docker stop’ gives
+the container time to shutdown gracefully, in situations when it is taking too much time for getting the container to stop, one can opt to kill it.
+
+docker –version
+This command is used to get the currently installed version of docker
+
+docker info -> returns the detailed information on the Docker service installed.
+how to write docker image
+https://docs.docker.com/compose/gettingstarted/
+
+
+
+
+___________________________________________________________________________________________________________________________________________
+Q: What does * * * * * (five asterisks) in a cron file mean?
+
+* = always. It is a wildcard for every part of the cron schedule expression.
+
+So * * * * * means every minute of every hour of every day of every month and every day of the week. 
+
+* * * * *  command to execute
+ ┬ ┬ ┬ ┬ ┬
+ │ │ │ │ │
+ │ │ │ │ │
+ │ │ │ │ └───── day of week (0 - 7) (0 to 6 are Sunday to Saturday, or use names; 7 is Sunday, the same as 0)
+ │ │ │ └────────── month (1 - 12)
+ │ │ └─────────────── day of month (1 - 31)
+ │ └──────────────────── hour (0 - 23)
+ └───────────────────────── min (0 - 59)
+
+___________________________________________________________________________________________________________________________________________
+
+Q: How to Create or Edit a crontab File
+
+https://docs.oracle.com/cd/E19253-01/817-0403/sysrescron-72169/index.html
+
+___________________________________________________________________________________________________________________________________________
+https://kb.iu.edu/d/afiz
+
+The cron daemon is a long-running process that executes commands at specific dates and times. You can use this to schedule activities, 
+either as one-time events or as recurring tasks.
